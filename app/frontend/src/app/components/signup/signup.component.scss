@@ -2,8 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 50vh;
+    min-height: 1vh;
 }
+
 .box{
     display: flex;
     flex-direction: row;
@@ -17,6 +18,7 @@
     backdrop-filter: blur(15px);
     border: 3px solid rgba(255, 255, 255, 0.2);
     overflow: hidden;
+    transition: height 0.5s ease; /* Adiciona uma transição suave de 0.5 segundos */
 }
 .box-login{
     position: absolute;
@@ -166,7 +168,30 @@ i{
 }
 #eye-slash,#eye-slash-2{
     opacity: 0;}
-@media only screen and (max-width: 576px){
+
+.loading-spinner, .success-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+    @media only screen and (max-width: 576px){
     .box{
         margin: 0 5px;
     }
@@ -175,3 +200,23 @@ i{
         width: 153px;
     }
 }
+
+.success-message {
+    display: flex;
+    align-items: center; /* Alinha os itens verticalmente */
+  }
+  
+  .check-symbol {
+    color: green;
+    margin-left: 10px; /* Adiciona um espaço entre a mensagem e o símbolo */
+  }
+  
+  .check-circle {
+    width: 20px; /* Tamanho do círculo */
+    height: 20px; /* Tamanho do círculo */
+    border: 2px solid green; /* Cor e estilo da borda */
+    border-radius: 50%; /* Forma do círculo */
+    display: flex;
+    justify-content: center; /* Alinha o conteúdo horizontalmente */
+    align-items: center; /* Alinha o conteúdo verticalmente */
+  }

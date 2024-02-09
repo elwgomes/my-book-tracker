@@ -1,11 +1,12 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
+import { importProvidersFrom } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 // bootstrapApplication(AppComponent, appConfig)
 //   .catch((err) => console.error(err));
 
 bootstrapApplication(AppComponent, {
-  providers: [provideHttpClient()]
+  providers: [[provideHttpClient()], importProvidersFrom(MatDialogRef)]
 }).catch((err) => console.error(err));

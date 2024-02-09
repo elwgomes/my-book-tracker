@@ -3,14 +3,15 @@ import { Component, ElementRef } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule, FormsModule],
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule, FormsModule, CommonModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -20,7 +21,7 @@ export class SignupComponent {
   password: any;
   email: any;
 
-  constructor(private elementRef: ElementRef, private authenticationService: AuthenticationService) {}
+  constructor(private elementRef: ElementRef, private authenticationService: AuthenticationService, private matDialogRef: MatDialogRef<SignupComponent>) {}
 
   private readonly ELEMENTS = {
     LOGIN: '#login',
@@ -34,25 +35,35 @@ export class SignupComponent {
     EYE_SLASH_2: '#eye-slash-2'
 };
 
+loading: boolean = false;
+registrationSuccessMessage: string | null = null;
+
 registerUser() {
+  this.loading = true;
+
   const userData = {
     username: this.username,
     email: this.email,
     password: this.password
   };
 
-  this.authenticationService.registerUser(userData)
-    .subscribe(
-      {
+  setTimeout(() => {
+    this.authenticationService.registerUser(userData)
+      .subscribe({
         next: (response) => {
           console.log(response);
+          this.loading = false;
+          this.registrationSuccessMessage = "User has been created successfully!";
+          setTimeout(() => this.matDialogRef.close(), 1500);
         },
         error: (error) => {
           console.error(error);
+          this.loading = false;
         }
-      }
-      );
+      });
+  }, 2000);
 }
+
 
   private getElement(id: string): HTMLElement {
     return this.elementRef.nativeElement.querySelector(id);

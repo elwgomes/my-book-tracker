@@ -1,6 +1,10 @@
-<div class="container">
-  <div class="box">
-  <div class="box-login" id="login">
+<div 
+class="container" 
+[ngStyle]="{ 'min-height.vh': registrationSuccessMessage ? 5 : 50 }"
+>
+   <div class="box" [ngStyle]="{ 'height.px': registrationSuccessMessage ? 64 : 620 }">
+<div *ngIf="!registrationSuccessMessage">
+  <div class="box-login" id="login" *ngIf="!loading">
       <div class="top-header">
           <h3>Hello, Again!</h3>
           <small>We are happy to have you back.</small>
@@ -33,8 +37,10 @@
           
       </div>
    </div>
+</div>
       <!---------------------------- register --------------------------------------->
-    <div class="box-register" id="register">
+      <div *ngIf="!registrationSuccessMessage">
+      <div class="box-register" id="register" *ngIf="!loading">
       <div class="top-header">
           <h3>Sign Up, Now!</h3>
           <small>We are happy to have you with us.</small>
@@ -68,7 +74,8 @@
            </div>
       </div>
    </div>
-   <div class="switch">
+   </div>
+   <div class="switch" *ngIf="!registrationSuccessMessage">
       <span class="login active" (click)="login()">Login</span>
       <span class="register" (click)="register()">Register</span>
       <div class="btn-active" id="btn"></div>
@@ -76,4 +83,20 @@
    
   </div>
   
+  <div class="loading-spinner" *ngIf="loading">
+   <div class="spinner"></div>
+ </div>
+
+ <div *ngIf="registrationSuccessMessage" class="success-message">
+   <div class="message-content">
+     {{ registrationSuccessMessage }}
+   </div>
+   <div class="check-symbol">
+     <div class="check-circle">
+       ✔
+     </div>
+   </div>  
+ </div>
+ 
+
 </div>
