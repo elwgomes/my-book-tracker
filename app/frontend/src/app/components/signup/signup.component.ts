@@ -4,15 +4,24 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule],
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule, FormsModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
+
+  username: any;
+  password: any;
+  email: any;
+
+  constructor(private elementRef: ElementRef, private authenticationService: AuthenticationService) {}
+
   private readonly ELEMENTS = {
     LOGIN: '#login',
     REGISTER: '#register',
@@ -25,7 +34,25 @@ export class SignupComponent {
     EYE_SLASH_2: '#eye-slash-2'
 };
 
-  constructor(private elementRef: ElementRef) {}
+registerUser() {
+  const userData = {
+    username: this.username,
+    email: this.email,
+    password: this.password
+  };
+
+  this.authenticationService.registerUser(userData)
+    .subscribe(
+      {
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      }
+      );
+}
 
   private getElement(id: string): HTMLElement {
     return this.elementRef.nativeElement.querySelector(id);

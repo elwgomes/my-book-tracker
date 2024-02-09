@@ -19,13 +19,13 @@ public class UserEntity implements Serializable {
     @EqualsAndHashCode.Include
     public Long id;
 
-    @Column(nullable = false, length = 32)
+    @Column(unique = true, nullable = false, length = 32)
     public String username;
 
     @Column(nullable = false, length = 32)
     public String password;
 
-    @Column(nullable = false, length = 64)
+    @Column(unique = true, nullable = false, length = 64)
     public String email;
 
     @Column(nullable = false)
