@@ -2,5 +2,6 @@ package br.com.elwgomes.mybooktracker.core.src.main.java.br.com.elwgomes.mybookt
 
 public enum UserRole {
     ADMIN,
+    STAFF,
     STANDARD
 }

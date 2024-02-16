@@ -1,7 +1,7 @@
 package br.com.elwgomes.mybooktracker.infrastructure.api.src.main.java.br.com.elwgomes.mybooktracker.user.controller;
 
 import br.com.elwgomes.mybooktracker.core.src.main.java.br.com.elwgomes.mybooktracker.user.ports.contract.CreateUserCommand;
-import br.com.elwgomes.mybooktracker.infrastructure.api.src.main.java.br.com.elwgomes.mybooktracker.user.controller.response.ControllerResponse;
+import br.com.elwgomes.mybooktracker.infrastructure.api.src.main.java.br.com.elwgomes.mybooktracker.user.controller.response.UserControllerResponse;
 import br.com.elwgomes.mybooktracker.infrastructure.api.src.main.java.br.com.elwgomes.mybooktracker.user.request.UserRequest;
 import br.com.elwgomes.mybooktracker.infrastructure.api.src.main.java.br.com.elwgomes.mybooktracker.user.response.UserResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +20,10 @@ public class UserController {
 
     private final CreateUserCommand createUserCommand;
 
-    @PostMapping
-    public ControllerResponse<UserResponse> create(@RequestBody UserRequest request) {
+    @PostMapping("create")
+    public UserControllerResponse<UserResponse> create(@RequestBody UserRequest request) {
         createUserCommand.execute(INSTANCE.toDomain(request));
-        return new ControllerResponse<>("created", String.valueOf(HttpStatus.CREATED.value()), "User has been created");
+        return new UserControllerResponse<>("created", String.valueOf(HttpStatus.CREATED.value()), "User has been created");
     }
 
 }

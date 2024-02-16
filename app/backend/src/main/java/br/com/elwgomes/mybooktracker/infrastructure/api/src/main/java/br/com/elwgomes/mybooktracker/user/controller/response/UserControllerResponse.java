@@ -10,14 +10,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ControllerResponse<D>{
+public class UserControllerResponse<D>{
 
     private String status;
     private String code;
     private String message;
     private D data;
 
-    public ControllerResponse(String status, String code, String message) {
+    public UserControllerResponse(String status, String code, String message) {
         this.status = status;
         this.code = code;
         this.message = message;

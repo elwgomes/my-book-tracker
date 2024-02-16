@@ -6,6 +6,7 @@ import br.com.elwgomes.mybooktracker.dataprovider.application.src.main.java.br.c
 import br.com.elwgomes.mybooktracker.dataprovider.application.src.main.java.br.com.elwgomes.mybooktracker.user.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -20,6 +21,8 @@ public class UserDatabaseAdapter implements UserDatabasePort {
     public void create(UserDomain userDomain) {
         userDomain.setRole(STANDARD);
         userDomain.setCreatedAt(new Date());
+        String encryptedPassword = new BCryptPasswordEncoder().encode(userDomain.getPassword());
+        userDomain.setPassword(encryptedPassword);
         jpaRepository.save(UserMapper.INSTANCE.toPersistence(userDomain));
     }
 }

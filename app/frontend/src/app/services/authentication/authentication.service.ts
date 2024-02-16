@@ -9,7 +9,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) { }
 
-  private apiUrl = "http://localhost:8080/api/v1/user"
+  private apiUrl = "http://localhost:8080/api/v1/user/create"
 
   registerUser(userData: any) {
     return this.http.post(this.apiUrl, userData);
