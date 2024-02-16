@@ -7,6 +7,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { log } from 'console';
 
 @Component({
   selector: 'app-signup',
@@ -20,6 +21,9 @@ export class SignupComponent {
   username: any;
   password: any;
   email: any;
+
+  logUsername: any;
+  logPassword: any;
 
   constructor(private elementRef: ElementRef, private authenticationService: AuthenticationService, private matDialogRef: MatDialogRef<SignupComponent>) {}
 
@@ -38,6 +42,30 @@ export class SignupComponent {
 loading: boolean = false;
 registrationSuccessMessage: string | null = null;
 
+
+  authLogin () {
+  const logUserData = {
+    username: this.logUsername,
+    password: this.logPassword
+  };
+
+  console.log(logUserData);
+setTimeout(() => {
+  this.authenticationService.authLogin(logUserData)
+  .subscribe({
+    next: (response: any) => {
+      console.log(response);
+      localStorage.setItem('access_token', response.access_token);
+    },
+    error: (error) => {
+      console.error(error);
+      this.loading = false;
+    }
+  });  
+}, 2000);
+
+  }
+
 registerUser() {
   this.loading = true;
 
@@ -46,6 +74,8 @@ registerUser() {
     email: this.email,
     password: this.password
   };
+
+
 
   setTimeout(() => {
     this.authenticationService.registerUser(userData)
