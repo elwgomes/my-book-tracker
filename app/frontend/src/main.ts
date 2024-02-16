@@ -4,9 +4,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
-// bootstrapApplication(AppComponent, appConfig)
-//   .catch((err) => console.error(err));
 
 bootstrapApplication(AppComponent, {
-  providers: [[provideHttpClient()], importProvidersFrom(MatDialogRef)]
+  providers: [provideHttpClient(), importProvidersFrom(MatDialogRef)]
 }).catch((err) => console.error(err));

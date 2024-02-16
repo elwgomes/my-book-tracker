@@ -5,9 +5,9 @@
     <div class="links">
         <span>SEARCH</span>
         <span>HOME</span>
-        <span>MY BOOKS</span>
+        <span *ngIf="isLoggedIn">MY BOOKS</span>
     </div>
-    <div class="login" (click)="openDialog()">
+    <div class="login" *ngIf="!isLoggedIn" (click)="openDialog()">
         <span>LOG IN</span>
     </div>
 </header>
